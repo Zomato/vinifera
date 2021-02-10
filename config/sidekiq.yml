@@ -1,0 +1,13 @@
+---
+:concurrency: 5
+production:
+  :concurrency: 30
+:queues:
+  - [ notification,3 ]
+  - [ monitor_installer,3 ]
+  - [ monitor,2 ]
+  - [ default,2 ]
+  - [ revision_monitor,1 ]
+  - [ code_scanner,1 ]
+  - [ commit_scanner,1 ]
+  - [ stray_code_scanner,1 ]

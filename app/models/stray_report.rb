@@ -1,0 +1,2 @@
+class StrayReport < ApplicationRecord
+end

@@ -1,0 +1,5 @@
+[[rules]]
+# Insert your rules here
+# description = "Internal References"
+# regex = '''(?i)((.*)<COMPANY_INTERNAL_REFERENCES>(.*))'''
+# tags = ["internal", "company","references"]
