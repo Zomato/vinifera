@@ -45,8 +45,22 @@ Vinifera requires installation of following tools:
 
 ### Setup 
 
+#####  Github Access Token
+To scan your organization members, Vinifera requires a token with ability to read Organization members.
+
+
+
+Generate a new token (https://github.com/settings/tokens/new)[https://github.com/settings/tokens/new) with no special scope
+
+You would want to use token of an admin user (with no special scope), since admin can list all users of an organization.
+
+[https://docs.github.com/en/rest/reference/orgs#list-organization-members](https://docs.github.com/en/rest/reference/orgs#list-organization-members)
+
+> If the authenticated user is also a member of this organization then both concealed and public members will be returned.
+
+
 #### Docker
-1. Create `.docker_env` with needed variables
+* Create `.docker_env` with needed variables
 
 ```bash
 GITHUB_ACCESS_TOKEN=<REDACTED>
@@ -68,17 +82,24 @@ VINIFERA_ENABLE_FORK_SCANNING=false
 VINIFERA_ENABLE_BIG_FORK_SCANNING=false
 ```
 
-2. Build 
+* Build 
 
 ```bash
 docker-compose build 
 ```
-3. Run 
+* Run 
 
 ```bash
 docker-compose up
 ```
 
+<hr>
+-  Re-building after any changes
+
+```bash
+docker-compose up --build
+```
+<hr>
 
 #### Manual 
 
@@ -146,7 +167,11 @@ bundle exec whenever --update-crontab
 ```bash
 bundle exec sidekiq
 ```
- 
+
+##### Datadog
+
+Additionally to get the metrics on Datadog like in the above screenshot, you can use DataDog agent - [https://docs.datadoghq.com/agent/](https://docs.datadoghq.com/agent/)
+
 ## Contributing 
 
 We are open to contributions/bug fixes/performance improvements to our project :) 
