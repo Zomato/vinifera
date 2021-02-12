@@ -99,6 +99,8 @@ docker-compose up
 ```bash
 docker-compose up --build
 ```
+
+[Docker Compose Commands for Reference](https://docs.docker.com/compose/reference/)
 <hr>
 
 #### Manual 
