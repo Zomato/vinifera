@@ -52,6 +52,11 @@ config/master.key
 # dotenv, dotenv-rails
 .env
 .env.*
+.docker_env
+
+# Docker certs
+.docker_certs
+.docker_certs.d
 
 ## Environment normalization:
 /vendor/bundle

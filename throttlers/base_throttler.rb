@@ -11,7 +11,7 @@ class BaseThrottler
 
   def initialize(name, opts)
     @identifier = name
-    @red_lock = Redlock::Client.new
+    @red_lock = Redlock::Client.new([ENV.fetch('REDIS_URL') { 'redis://localhost:6379/1' }])
     _init_(opts)
   end
 

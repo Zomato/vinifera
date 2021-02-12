@@ -1,0 +1,76 @@
+services:
+  db:
+    image: 'postgres:13.1-alpine'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    ports:
+      - '5431:5432'
+    expose:
+      - 5431
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    networks:
+      - postgres-connection
+
+  redis:
+    image: 'redis:6-alpine'
+    ports:
+      - '6378:6379'
+    expose:
+      - 6378
+    volumes:
+      - 'redis:/data'
+    networks:
+      - redis-connection
+
+  docker-host:
+    image: docker:dind
+    container_name: docker
+    privileged: yes
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/.docker_certs/client:/certs/client
+      - ${PWD}/.docker_certs.d:/etc/docker/certs.d
+    networks:
+      docker-connection:
+        ipv4_address: 10.5.0.5
+
+  sidekiq:
+    depends_on:
+      - 'db'
+      - 'redis'
+      - 'docker-host'
+    build: .
+    volumes:
+      - '.:/project'
+      - '/project/tmp'
+      - ${PWD}/.docker_certs/client:/app/.docker_certs/
+    env_file:
+      - '.docker_env'
+    environment:
+      DOCKER_CLIENT_CERT_PATH: '/app/.docker_certs/'
+      DOCKER_HOST: 'tcp://10.5.0.5:2376' # Due to TLS certificate requires host to be same as those in CA
+      REDIS_URL: 'redis://redis:6379/1'
+      SIDEKIQ_REDIS_URL: 'redis://redis:6379/2'
+      RAILS_ENV: 'production'
+      VINIFERA_DATABASE_HOST: 'db'
+    networks: # Replicate VPCs and isolate communication between containers
+     - docker-connection
+     - redis-connection
+     - postgres-connection
+
+volumes:
+  redis:
+  postgres:
+  docker-host:
+
+networks:
+  docker-connection:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+
+  redis-connection:
+  postgres-connection:

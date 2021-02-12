@@ -45,6 +45,43 @@ Vinifera requires installation of following tools:
 
 ### Setup 
 
+#### Docker
+1. Create `.docker_env` with needed variables
+
+```bash
+GITHUB_ACCESS_TOKEN=<REDACTED>
+VINIFERA_ORG_NAME=<Your_org_name>
+
+RAILS_MAX_THREADS=60 # This also controls DB pool
+
+RAILS_MASTER_KEY=<REDACTED>
+
+
+SLACK_UPDATES_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_TARGETS_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_USER_TRACKING_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_VINIFERA_VIOLATION_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_ERROR_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+
+# By default fork and big fork scanning is disabled
+VINIFERA_ENABLE_FORK_SCANNING=false
+VINIFERA_ENABLE_BIG_FORK_SCANNING=false
+```
+
+2. Build 
+
+```bash
+docker-compose build 
+```
+3. Run 
+
+```bash
+docker-compose up
+```
+
+
+#### Manual 
+
 * Install required dependencies
 ```bash
 cd <location_of_cloned_repo>

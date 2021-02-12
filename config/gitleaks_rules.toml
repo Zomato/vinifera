@@ -1,5 +1,22 @@
-[[rules]]
 # Insert your rules here
+#[[rules]]
 # description = "Internal References"
 # regex = '''(?i)((.*)<COMPANY_INTERNAL_REFERENCES>(.*))'''
 # tags = ["internal", "company","references"]
+
+# Here are some rules :)
+[[rules]]
+description = "Files with keys and credentials"
+file = '''(?i)(id_rsa|passwd|id_rsa.pub|pgpass|pem|key|shadow|env)$'''
+[allowlist]
+description = "Skip false positive locations and files"
+files = ['''^\.?gitleaks.toml$''',
+    '''(.*?)(jpg|gif|doc|pdf|bin|svg)$''',
+    '''(go.mod|go.sum)$''',
+    '''(.*)yarn.lock$''',
+    '''(.*)?js.map$''',
+]
+paths = [
+    '''vendor(.*)$''',
+    '''node_modules(.*)$'''
+]

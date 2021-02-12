@@ -16,8 +16,10 @@
 #
 default: &default
   adapter: postgresql
-  host: localhost
   encoding: unicode
+  host: <%= ENV.fetch('VINIFERA_DATABASE_HOST') { 'localhost' } %>
+  username: <%= ENV.fetch('VINIFERA_DATABASE_USER') { 'postgres' } %>
+  password: <%= ENV.fetch('VINIFERA_DATABASE_PASSWORD') {''} %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -81,9 +83,6 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV.fetch('VINIFERA_DATABASE_HOST') { 'localhost' } %>
-  database: <%= ENV.fetch('VINIFERA_DATABASE_NAME') { 'vinifera_production' } %>
-  username: <%= ENV.fetch('VINIFERA_DATABASE_USER') { 'vinifera_production' } %>
-  password: <%= ENV['VINIFERA_DATABASE_PASSWORD'] %>
+  databse: vinifera_production
   variables:
     statement_timeout: 5000

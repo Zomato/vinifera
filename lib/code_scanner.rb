@@ -93,7 +93,7 @@ class CodeScanner
   end
 
   def report_file
-    @report_file ||= tmp_fi
+    @report_file ||= tmp_file
   end
 
   def clone_location
