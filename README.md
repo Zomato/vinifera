@@ -196,6 +196,12 @@ Vinifera is built on top of other open source software:
 
 You can also donate to [Feeding India](https://www.feedingindia.org/)
 
+## Disclaimer
+
+Neither Zomato nor developers of this tool are responsible for any damage caused by this tool or usage of the same.
+Use responsibly. Refer to LICENSE for more details.
+
+
 ## License 
 
 Vinifera is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
