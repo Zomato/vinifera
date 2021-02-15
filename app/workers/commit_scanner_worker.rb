@@ -27,7 +27,7 @@ class CommitScannerWorker
     target = target_id.nil? ? target_id : Target.find(target_id)
     monitor = monitor_id.nil? ? monitor_id : TargetMonitor.find(monitor_id)
     reports.each do |report|
-      FileScanResultProcessor.new(target, monitor).process(report, commit_url)
+      ScanResultService::FileScanResultProcessor.new(target, monitor).process(report, commit_url)
     end
   end
 end

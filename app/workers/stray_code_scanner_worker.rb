@@ -25,6 +25,6 @@ class StrayCodeScannerWorker
   def perform(url, opts = {})
     opts.deep_symbolize_keys!
     report = CodeScanner.new.scan(url, opts)
-    StrayCodeScanResultProcessor.new.process(report, url)
+    ScanResultService::StrayCodeScanResultProcessor.new.process(report, url)
   end
 end

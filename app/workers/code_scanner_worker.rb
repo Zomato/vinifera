@@ -26,6 +26,6 @@ class CodeScannerWorker
     target = Target.find(target_id)
     monitor = TargetMonitor.find(monitor_id)
     report = CodeScanner.new.scan(target.url, opts)
-    CodeScanResultProcessor.new(target, monitor).process(report) if report.present?
+    ScanResultService::CodeScanResultProcessor.new(target, monitor).process(report) if report.present?
   end
 end
