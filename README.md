@@ -38,7 +38,7 @@ Vinifera is inspired from the [Bionomial name of Grapes](https://en.wikipedia.or
 
 ### Requirements
 Vinifera requires the installation of the following tools:
-1.PostgreSQL
+1. PostgreSQL
 2. Redis
 3. Docker
 4. Ruby (Install via rbenv/rvm )
