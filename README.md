@@ -45,12 +45,12 @@ Vinifera requires the installation of the following tools:
 
 ### Setup
 
-#####  Github Access Token
+##### Github Access Token
 To scan your organization members, Vinifera requires a token with the ability to read Organization members.
 
 
 
-Generate a new token (https://github.com/settings/tokens/new)[https://github.com/settings/tokens/new) with no special scope
+Generate a new token [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) with no special scope
 
 You would want to use the token of an admin user (with no special scope), since the admin can list all users of an organization.
 
@@ -93,12 +93,13 @@ docker-compose build
 docker-compose up
 ```
 
-<hr>
--  Re-building after any changes
+* Re-building after any changes
 
 ```bash
 docker-compose up --build
 ```
+
+<hr>
 
 [Docker Compose Commands for Reference](https://docs.docker.com/compose/reference/)
 <hr>
@@ -115,7 +116,7 @@ bundle install
 ```bash
 bundle exec rails db:create
 bundle exec rails db:migrate
-```  
+```
 
 * Setup Environment Variables and Slack WebHook
 Sample env file is available at `.example_env`
@@ -163,7 +164,7 @@ bundle exec whenever --update-crontab
 # description = "Internal References"
 # regex = '''(?i)((.*)<COMPANY_INTERNAL_REFERENCES>(.*))'''
 # tags = ["internal", "company","references"]
-```  
+```
 
 * Start Sidekiq
 ```bash
@@ -199,7 +200,7 @@ You can also donate to [Feeding India](https://www.feedingindia.org/)
 ## Disclaimer
 
 Neither Zomato nor the developers of this tool are responsible for any damage caused by this tool or usage of the same.
-Use responsibly. Refer to LICENSE for more details.
+Use responsibly. Refer to [LICENSE](LICENSE) for more details.
 
 
 ## License
