@@ -51,9 +51,8 @@ module GithubService
     end
 
     def process_as_stray(commit, url)
-      opts = { only_commit: true, commit_id: commit.sha }
       @slack_notifier.notify("External Repo push Found for  #{url} \b commit id #{commit.sha} - #{@target.slug}")
-      StrayCodeScannerWorker.perform_async(url, opts)
+      CommitScannerWorker.perform_async(commit.url)
     end
   end
 end

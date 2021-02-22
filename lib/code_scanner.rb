@@ -1,13 +1,14 @@
 class CodeScanner
   BASE_IMAGE = 'zricethezav/gitleaks'.freeze
-  REPO_TAG = 'zricethezav/gitleaks:v7.2.0'.freeze
+  IMAGE_VERSION = 'v7.2.0'.freeze
+  REPO_TAG = "zricethezav/gitleaks:#{IMAGE_VERSION}".freeze
   CUSTOM_RULE_PATH = '/data/gitleaks.toml'.freeze
   POLL_INTERVAL = 2.seconds
   TTL = 10.minutes
-  CPU_SHARE = '0.4'.freeze
+  CPU_SHARE = '0.3'.freeze # Dedicate at most 30% of CPUShare to a container
   CPU_SET_CPUS = '0'.freeze # Limit only one core to this container
 
-  MEMORY_LIMIT = 1024 * 1024 * 1024 # 1 GB
+  MEMORY_LIMIT = 512 * 1024 * 1024 # 512 MB
 
   class ZombieScan < RuntimeError; end
 
@@ -44,20 +45,22 @@ class CodeScanner
 
   def monitor_container(container)
     container.start!
-    while Docker::Container.all.find { |e| e.id == container.id }
-      sleep POLL_INTERVAL
+    while (container = Docker::Container.get(container.id))
+      return unless container.info['State']['Running']
       # If container is taking too long to scan, kill it
       container_creation = container.info['Created']
-      if container_creation && (Time.zone.now.to_i - container_creation).seconds >= TTL
-        container.kill!
-        raise ReaperKill, 'Container took too long to scan.'
+      if container_creation && (Time.zone.now - Time.zone.parse(container_creation)).seconds >= TTL
+        container.kill
+        raise ReaperKill, "Container took too long to scan."
       end
 
       # If container is idle, kill it and raise custom exception
-      if container.stats['pids_stats'].nil? && container.stats['cpu_stats']['cpu_usage']['total_usage'].to_i.positive?
-        container.kill!
-        raise ZombieScan, 'Container seems to be idle' unless container.stats['pid_stats']
+      if container.stats['pids_stats'].empty? && container.stats['cpu_stats']['cpu_usage']['total_usage'].to_i.positive?
+        # Stop containers instead of killing them in idle state
+        container.stop
+        raise ZombieScan, "Container seems to be idle"
       end
+      sleep POLL_INTERVAL
     end
   end
 
@@ -83,7 +86,6 @@ class CodeScanner
     elsif opts[:repo]
       return "--clone-path #{opts[:clone_location]} --report #{opts[:report]} -r #{opts[:repo]} --commit #{opts[:commit_id]} --config-path #{CUSTOM_RULE_PATH} --leaks-exit-code=0" if opts[:commit_id] and opts[:only_commit]
       return "--clone-path #{opts[:clone_location]} --clone-path --report #{opts[:report]} -r #{opts[:repo]} --commit-from #{opts[:commit_id]} --config-path #{CUSTOM_RULE_PATH} --leaks-exit-code=0" if opts[:commit_id] and opts[:from_commit]
-
       "--clone-path #{opts[:clone_location]} --report #{opts[:report]} -r #{opts[:repo]} --config-path #{CUSTOM_RULE_PATH} --leaks-exit-code=0"
     end
   end
@@ -109,7 +111,7 @@ class CodeScanner
   end
 
   def ensure_image
-    Docker::Image.exist?(REPO_TAG) || Docker::Image.create(fromImage: BASE_IMAGE, tag: 'v7.2.0')
+    Docker::Image.exist?(REPO_TAG) || Docker::Image.create(fromImage: BASE_IMAGE, tag: IMAGE_VERSION)
   end
 
 end
