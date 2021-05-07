@@ -43,6 +43,8 @@ gem 'docker-api'
 
 gem 'slack-notifier'
 
+gem 'pagerduty', '3.0.0'
+
 gem 'redlock'
 
 gem 'dogstatsd-ruby'
