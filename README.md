@@ -151,6 +151,10 @@ VINIFERA_ENABLE_BIG_FORK_SCANNING=false
 
 REDIS_URL=redis://<REDIS_URI>
 SIDEKIQ_REDIS_URL=redis://<REDIS_URI>
+
+# For PagerDuty Integration
+DEFAULT_PD_INTEGRATION_KEY=<xxxxxxxx>
+ENABLE_PAGER_DUTY_TRIGGER=true
 ```
 
 * Setup Cron Jobs
@@ -174,6 +178,27 @@ bundle exec sidekiq
 ##### Datadog
 
 Additionally, to get the metrics on Datadog like in the above screenshot, you can use the DataDog agent - [https://docs.datadoghq.com/agent/](https://docs.datadoghq.com/agent/)
+
+
+##### PagerDuty
+
+To ensure the team never misses any violation, PagerDuty integration option is there:
+
+![PagerDuty Incident](docs/img/pager_duty_incident.png "PagerDuty Incident")
+
+For PagerDuty integration, following environment variable needs to be set to `true`
+
+```bash
+ENABLE_PAGER_DUTY_TRIGGER=true
+```
+
+Then create a new service and a integration key as described in following doc - https://support.pagerduty.com/docs/services-and-integrations#create-a-new-service
+
+![PagerDuty Service](docs/img/pager_duty_service.png "PagerDuty Service")
+
+```bash
+DEFAULT_PD_INTEGRATION_KEY=<xxxxxxxx>
+```
 
 ## Contributing
 

@@ -83,6 +83,7 @@ GEM
     hiredis (0.6.3)
     i18n (1.8.8)
       concurrent-ruby (~> 1.0)
+    json (2.5.1)
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -108,6 +109,8 @@ GEM
     octokit (4.19.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
+    pagerduty (3.0.0)
+      json (>= 1.7.7)
     pg (1.2.3)
     public_suffix (4.0.6)
     puma (4.3.7)
@@ -199,6 +202,7 @@ DEPENDENCIES
   hiredis
   listen (~> 3.2)
   octokit
+  pagerduty (= 3.0.0)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
@@ -214,7 +218,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.6.5p114
+   ruby 2.6.6p146
 
 BUNDLED WITH
-   2.1.4
+   2.2.9
