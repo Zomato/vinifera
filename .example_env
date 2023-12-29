@@ -1,0 +1,30 @@
+GITHUB_ACCESS_TOKEN=<REDACTED>
+VINIFERA_ORG_NAME=<Your_org_name> # Name of org for which token was generated.
+
+VINIFERA_DATABASE_HOST=<localhost>
+VINIFERA_DATABASE_PASSWORD=<YOUR_PASSWORD>
+
+RAILS_MAX_THREADS=60 # This also controls DB pool
+
+RAILS_MASTER_KEY=<REDACTED>
+
+
+SLACK_UPDATES_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_TARGETS_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_USER_TRACKING_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_VINIFERA_VIOLATION_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+SLACK_ERROR_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
+
+
+
+# Add this only if your are using Docker over TLS, recommended way, if on same host as vinifera, you may skip it
+
+DOCKER_CLIENT_CERT_PATH=/home/deployer/.docker
+DOCKER_HOST=tcp://<IP>:<PORT>
+
+# By default fork and big fork scanning is disabled
+VINIFERA_ENABLE_FORK_SCANNING=false
+VINIFERA_ENABLE_BIG_FORK_SCANNING=false
+
+REDIS_URL=redis://<REDIS_URI>
+SIDEKIQ_REDIS_URL=redis://<REDIS_URI>
