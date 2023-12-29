@@ -55,7 +55,6 @@ services:
       DOCKER_HOST: 'tcp://10.5.0.5:2376' # Due to TLS certificate requires host to be same as those in CA
       REDIS_URL: 'redis://redis:6379/1'
       SIDEKIQ_REDIS_URL: 'redis://redis:6379/2'
-      RAILS_ENV: 'production'
       VINIFERA_DATABASE_HOST: 'db'
     networks: # Replicate VPCs and isolate communication between containers
      - docker-connection

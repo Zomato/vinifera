@@ -68,8 +68,10 @@ VINIFERA_ORG_NAME=<Your_org_name>
 
 RAILS_MAX_THREADS=60 # This also controls DB pool
 
-RAILS_MASTER_KEY=<REDACTED>
+RAILS_MASTER_KEY=<ADD_YOUR_SECRET_KEY_HERE_FOR_PROD>
 
+# set the environment
+RAILS_ENV=<development|production>
 
 SLACK_UPDATES_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
 SLACK_TARGETS_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
@@ -98,6 +100,13 @@ docker-compose up
 ```bash
 docker-compose up --build
 ```
+
+* Sync Github Org Users
+
+```bash
+docker exec -it vinifera_sidekiq bundle exec rake periodic_syncs:sync_github_users
+```
+
 
 <hr>
 
