@@ -60,7 +60,14 @@ You would want to use the token of an admin user (with no special scope), since 
 
 
 #### Docker
-* Create `.docker_env` with needed variables
+
+* Rename `.docker_env.example` to `.docker_env`
+
+```bash
+mv .docker_env.example .docker_env
+```
+
+* Update `.docker_env` with needed variables
 
 ```bash
 GITHUB_ACCESS_TOKEN=<REDACTED>
@@ -68,11 +75,15 @@ VINIFERA_ORG_NAME=<Your_org_name>
 
 RAILS_MAX_THREADS=60 # This also controls DB pool
 
-RAILS_MASTER_KEY=<ADD_YOUR_SECRET_KEY_HERE_FOR_PROD>
+RAILS_MASTER_KEY=<ADD_YOUR_MASTER_KEY_HERE>
 
 # set the environment
 RAILS_ENV=<development|production>
 
+# set the following if RAILS_ENV is set to production
+SECRET_KEY_BASE=<YOUR_SECRET_KEY> # min 32 bits key is allowed
+
+# add slack incoming webhook URLs for respective slack channels
 SLACK_UPDATES_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
 SLACK_TARGETS_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
 SLACK_USER_TRACKING_GROUP_URL=https://hooks.slack.com/services/<YOUR_CONFIG_HERE>
