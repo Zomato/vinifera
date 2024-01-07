@@ -1,6 +1,6 @@
 class CodeScanner
-  BASE_IMAGE = 'zricethezav/gitleaks'.freeze
   IMAGE_VERSION = 'v7.2.0'.freeze
+  BASE_IMAGE = "zricethezav/gitleaks:#{IMAGE_VERSION}".freeze
   REPO_TAG = "zricethezav/gitleaks:#{IMAGE_VERSION}".freeze
   CUSTOM_RULE_PATH = '/data/gitleaks.toml'.freeze
   POLL_INTERVAL = 2.seconds
